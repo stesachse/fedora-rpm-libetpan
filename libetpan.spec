@@ -1,6 +1,6 @@
 Name:           libetpan
-Version:        0.39.1
-Release:        2%{?dist}
+Version:        0.40
+Release:        1%{?dist}
 Summary: Portable, efficient middleware for different kinds of mail access
 
 Group:          System Environment/Libraries
@@ -31,7 +31,7 @@ The %{name}-devel package contains the files needed for development
 with %{name}.
 
 %prep
-%setup -q -n %{name}-0.39
+%setup -q -n %{name}-0.40
 
 %build
 %configure --disable-static --with-gnutls=no
@@ -43,7 +43,7 @@ rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 
 rm -rf $RPM_BUILD_ROOT%{_libdir}/libetpan.la
-chmod 755 $RPM_BUILD_ROOT%{_libdir}/libetpan.so.3.1.0
+chmod 755 $RPM_BUILD_ROOT%{_libdir}/libetpan.so.3.2.0
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -65,9 +65,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
-* Thu Nov 10 2005 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-0.39.1-2
-- rebuild
+* Thu Nov 17 2005 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+0.40-1
+- version upgrade
 
 * Fri Sep 23 2005 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 0.39.1-1
