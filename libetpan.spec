@@ -35,7 +35,7 @@ with %{name}.
 
 %build
 %configure --disable-static --with-gnutls=no
-make %{?_smp_mflags}
+make # %{?_smp_mflags} not parallel clean
 
 
 %install
