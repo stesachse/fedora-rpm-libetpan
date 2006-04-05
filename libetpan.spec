@@ -1,5 +1,5 @@
 Name:           libetpan
-Version:        0.42
+Version:        0.45
 Release:        1%{?dist}
 Summary: Portable, efficient middleware for different kinds of mail access
 
@@ -35,7 +35,7 @@ with %{name}.
 
 %build
 %configure --disable-static --with-gnutls=no
-make %{?_smp_mflags}
+make # %{?_smp_mflags} not parallel clean
 
 
 %install
@@ -43,7 +43,7 @@ rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 
 rm -rf $RPM_BUILD_ROOT%{_libdir}/libetpan.la
-chmod 755 $RPM_BUILD_ROOT%{_libdir}/libetpan.so.6.0.1
+chmod 755 $RPM_BUILD_ROOT%{_libdir}/libetpan.so.6.1.0
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -65,6 +65,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Wed Apr 05 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+0.45-1
+- version upgrade
+
 * Fri Feb 03 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 0.42-1
 - version upgrade
