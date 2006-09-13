@@ -1,6 +1,6 @@
 Name:           libetpan
 Version:        0.45
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary: Portable, efficient middleware for different kinds of mail access
 
 Group:          System Environment/Libraries
@@ -65,6 +65,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Wed Sep 13 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+0.45-2
+- FE6 rebuild
+
 * Thu Mar 23 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 0.45-1
 - version upgrade
