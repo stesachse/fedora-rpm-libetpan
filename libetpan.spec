@@ -1,6 +1,6 @@
 Name:           libetpan
-Version:        0.46
-Release:        2%{?dist}
+Version:        0.47
+Release:        1%{?dist}
 Summary: Portable, efficient middleware for different kinds of mail access
 
 Group:          System Environment/Libraries
@@ -43,7 +43,7 @@ rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 
 rm -rf $RPM_BUILD_ROOT%{_libdir}/libetpan.la
-chmod 755 $RPM_BUILD_ROOT%{_libdir}/libetpan.so.8.0.0
+chmod 755 $RPM_BUILD_ROOT%{_libdir}/libetpan.so.8.1.0
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -65,6 +65,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Thu Oct 19 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+0.47-1
+- version upgrade
+
 * Thu Oct 05 2006 Christian Iseli <Christian.Iseli@licr.org> 0.46-2
  - rebuilt for unwind info generation, broken in gcc-4.1.1-21
 
