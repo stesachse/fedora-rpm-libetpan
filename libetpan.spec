@@ -53,14 +53,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc ChangeLog COPYRIGHT NEWS TODO
+%doc ChangeLog COPYRIGHT NEWS
 %{_libdir}/*.so.*
 
 %files devel
 %defattr(-,root,root,-)
 %doc doc/API.html doc/README.html doc/DOCUMENTATION
 %{_bindir}/libetpan-config
-%{_includedir}/libetpan.h
 %{_includedir}/libetpan
 %{_libdir}/*.so
 
