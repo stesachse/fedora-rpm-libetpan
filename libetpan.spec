@@ -1,6 +1,6 @@
 Name:           libetpan
-Version:        0.49
-Release:        1%{?dist}
+Version:        0.52
+Release:        2%{?dist}
 Summary: Portable, efficient middleware for different kinds of mail access
 
 Group:          System Environment/Libraries
@@ -53,18 +53,29 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc ChangeLog COPYRIGHT NEWS TODO
+%doc ChangeLog COPYRIGHT NEWS
 %{_libdir}/*.so.*
 
 %files devel
 %defattr(-,root,root,-)
 %doc doc/API.html doc/README.html doc/DOCUMENTATION
 %{_bindir}/libetpan-config
-%{_includedir}/libetpan.h
 %{_includedir}/libetpan
 %{_libdir}/*.so
 
 %changelog
+* Mon Nov 19 2007 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+- 0.52-2
+- bump
+
+* Wed Aug 22 2007 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+- 0.52-1
+- version upgrade
+
+* Sun Feb 25 2007 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+0.49-2
+- bump
+
 * Wed Jan 17 2007 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 0.49-1
 - version upgrade
@@ -77,13 +88,24 @@ rm -rf $RPM_BUILD_ROOT
 0.47-1
 - version upgrade
 
-* Sat Sep 30 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+* Thu Oct 05 2006 Christian Iseli <Christian.Iseli@licr.org> 0.46-2
+ - rebuilt for unwind info generation, broken in gcc-4.1.1-21
+
+* Tue Sep 26 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 0.46-1
 - version upgrade
 
-* Wed Apr 05 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+* Wed Sep 13 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+0.45-2
+- FE6 rebuild
+
+* Thu Mar 23 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 0.45-1
 - version upgrade
+
+* Wed Feb 15 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+0.42-2
+- Rebuild for Fedora Extras 5
 
 * Fri Feb 03 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 0.42-1
