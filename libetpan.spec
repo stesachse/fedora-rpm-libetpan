@@ -1,6 +1,6 @@
 Name:           libetpan
-Version:        0.49
-Release:        1%{?dist}
+Version:        0.52
+Release:        2%{?dist}
 Summary: Portable, efficient middleware for different kinds of mail access
 
 Group:          System Environment/Libraries
@@ -53,18 +53,29 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc ChangeLog COPYRIGHT NEWS TODO
+%doc ChangeLog COPYRIGHT NEWS
 %{_libdir}/*.so.*
 
 %files devel
 %defattr(-,root,root,-)
 %doc doc/API.html doc/README.html doc/DOCUMENTATION
 %{_bindir}/libetpan-config
-%{_includedir}/libetpan.h
 %{_includedir}/libetpan
 %{_libdir}/*.so
 
 %changelog
+* Mon Nov 19 2007 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+- 0.52-2
+- bump
+
+* Wed Aug 22 2007 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+- 0.52-1
+- version upgrade
+
+* Sun Feb 25 2007 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+0.49-2
+- bump
+
 * Wed Jan 17 2007 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 0.49-1
 - version upgrade
