@@ -1,12 +1,13 @@
 Name:           libetpan
 Version:        0.52
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary: Portable, efficient middleware for different kinds of mail access
 
 Group:          System Environment/Libraries
 License:        BSD
 URL:            http://www.etpan.org/
 Source0:        http://dl.sf.net/%{name}/%{name}-%{version}.tar.gz
+Patch0:         libetpan-multiarch.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  db4-devel
@@ -32,10 +33,11 @@ with %{name}.
 
 %prep
 %setup -q
+%patch0
 
 %build
 %configure --disable-static --with-gnutls=no
-make # %{?_smp_mflags} not parallel clean
+make %{?_smp_mflags}
 
 
 %install
@@ -44,6 +46,8 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 rm -rf $RPM_BUILD_ROOT%{_libdir}/libetpan.la
 chmod 755 $RPM_BUILD_ROOT%{_libdir}/libetpan.so.11.0.0
+
+touch -r ChangeLog $RPM_BUILD_ROOT%{_bindir}/libetpan-config
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -64,6 +68,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Sat Jan 05 2008 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+- 0.52-4
+- fix #342021 multiarch
+
+* Thu Dec 06 2007 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+- 0.52-3
+- bump
+
 * Mon Nov 19 2007 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 - 0.52-2
 - bump
