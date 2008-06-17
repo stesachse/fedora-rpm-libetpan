@@ -1,0 +1,41 @@
+--- mailimf.c	2008/02/20 22:15:52	1.46
++++ mailimf.c	2008/05/22 22:22:34	1.47
+@@ -30,7 +30,7 @@
+  */
+ 
+ /*
+- * $Id: libetpan-mailimf.patch,v 1.1 2008/06/17 11:51:12 awjb Exp $
++ * $Id: libetpan-mailimf.patch,v 1.1 2008/06/17 11:51:12 awjb Exp $
+  */
+ 
+ #ifdef HAVE_CONFIG_H
+@@ -3023,11 +3023,14 @@
+     break;
+   case MAILIMF_ERROR_PARSE:
+     r = mailimf_cfws_parse(message, length, &cur_token);
+-    if ((r != MAILIMF_NO_ERROR) && (r != MAILIMF_ERROR_PARSE))
+-      return r;
++    if ((r != MAILIMF_NO_ERROR) && (r != MAILIMF_ERROR_PARSE)) {
++      res = r;
++      goto free_display_name;
++    }
+     break;
+   default:
+-    return r;
++    res = r;
++    goto free_display_name;
+   }
+ 
+   r = mailimf_semi_colon_parse(message, length, &cur_token);
+@@ -3048,7 +3051,9 @@
+   return MAILIMF_NO_ERROR;
+ 
+  free_mailbox_list:
+-  mailimf_mailbox_list_free(mailbox_list);
++  if (mailbox_list != NULL) {
++    mailimf_mailbox_list_free(mailbox_list);
++  }
+  free_display_name:
+   mailimf_display_name_free(display_name);
+  err:
+
