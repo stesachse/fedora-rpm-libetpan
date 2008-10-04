@@ -1,5 +1,5 @@
 Name:           libetpan
-Version:        0.54
+Version:        0.56
 Release:        1%{?dist}
 Summary: Portable, efficient middleware for different kinds of mail access
 
@@ -8,12 +8,12 @@ License:        BSD
 URL:            http://www.etpan.org/
 Source0:        http://dl.sf.net/%{name}/%{name}-%{version}.tar.gz
 Patch0:         libetpan-multiarch.patch
-Patch1:         libetpan-mailimf.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  db4-devel
 BuildRequires:  cyrus-sasl-devel
 BuildRequires:  openssl-devel
+BuildRequires:  libtool
 
 %description
 The purpose of this mail library is to provide a portable, efficient middleware
@@ -35,21 +35,18 @@ with %{name}.
 %prep
 %setup -q
 %patch0
-pushd ./src/low-level/imf/
-%patch1
-popd
 
 %build
 %configure --disable-static --with-gnutls=no
-make %{?_smp_mflags}
+make LIBTOOL=%{_bindir}/libtool %{?_smp_mflags}
 
 
 %install
 rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 
-rm -rf $RPM_BUILD_ROOT%{_libdir}/libetpan.la
-chmod 755 $RPM_BUILD_ROOT%{_libdir}/libetpan.so.13.0.0
+rm -rf $RPM_BUILD_ROOT%{_libdir}/libetpan.{,l}a
+chmod 755 $RPM_BUILD_ROOT%{_libdir}/libetpan.so.13.1.1
 
 touch -r ChangeLog $RPM_BUILD_ROOT%{_bindir}/libetpan-config
 
@@ -73,6 +70,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Mon Sep 08 2008 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+- 0.56-1
+- version upgrade
+
 * Tue Jun 17 2008 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 - 0.54-1
 - version upgrade
