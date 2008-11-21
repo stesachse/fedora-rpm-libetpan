@@ -13,7 +13,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  db4-devel
 BuildRequires:  cyrus-sasl-devel
 BuildRequires:  gnutls-devel
-BuildRequires:  libcurl-devel expat-devel
+BuildRequires:  curl-devel expat-devel
 BuildRequires:  libtool
 
 %description
