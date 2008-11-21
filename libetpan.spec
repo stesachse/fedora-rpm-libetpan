@@ -1,5 +1,5 @@
 Name:           libetpan
-Version:        0.56
+Version:        0.57
 Release:        1%{?dist}
 Summary: Portable, efficient middleware for different kinds of mail access
 
@@ -12,7 +12,8 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  db4-devel
 BuildRequires:  cyrus-sasl-devel
-BuildRequires:  openssl-devel
+BuildRequires:  gnutls-devel
+BuildRequires:  libcurl-devel expat-devel
 BuildRequires:  libtool
 
 %description
@@ -24,9 +25,10 @@ interface is the same for all kinds of mail access, remote and local mailboxes.
 Summary:        Development package for %{name}
 Group:          Development/Libraries
 Requires:       %{name} = %{version}-%{release}
-Requires:       openssl-devel
+Requires:       gnutls-devel
 Requires:       cyrus-sasl-devel
 Requires:       db4-devel
+Requires:       expat-devel libcurl-devel
 
 %description    devel
 The %{name}-devel package contains the files needed for development
@@ -37,7 +39,7 @@ with %{name}.
 %patch0
 
 %build
-%configure --disable-static --with-gnutls=no
+%configure --disable-static --with-gnutls=yes --with-openssl=no
 make LIBTOOL=%{_bindir}/libtool %{?_smp_mflags}
 
 
@@ -46,7 +48,7 @@ rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 
 rm -rf $RPM_BUILD_ROOT%{_libdir}/libetpan.{,l}a
-chmod 755 $RPM_BUILD_ROOT%{_libdir}/libetpan.so.13.1.1
+chmod 755 $RPM_BUILD_ROOT%{_libdir}/libetpan.so.13.1.2
 
 touch -r ChangeLog $RPM_BUILD_ROOT%{_bindir}/libetpan-config
 
@@ -70,6 +72,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Fri Nov 21 2008 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+- 0.57-1
+- version upgrade
+- switch to gnutls (fixed upstream)
+
 * Mon Sep 08 2008 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 - 0.56-1
 - version upgrade
