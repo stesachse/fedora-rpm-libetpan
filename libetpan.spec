@@ -1,5 +1,5 @@
 Name:           libetpan
-Version:        0.57
+Version:        0.58
 Release:        1%{?dist}
 Summary: Portable, efficient middleware for different kinds of mail access
 
@@ -48,7 +48,7 @@ rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 
 rm -rf $RPM_BUILD_ROOT%{_libdir}/libetpan.{,l}a
-chmod 755 $RPM_BUILD_ROOT%{_libdir}/libetpan.so.13.1.2
+chmod 755 $RPM_BUILD_ROOT%{_libdir}/libetpan.so.13.1.3
 
 touch -r ChangeLog $RPM_BUILD_ROOT%{_bindir}/libetpan-config
 
@@ -72,6 +72,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Wed Jul 15 2009 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+- 0.58-1
+- version upgrade
+
+* Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.57-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
+
 * Fri Nov 21 2008 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 - 0.57-1
 - version upgrade
