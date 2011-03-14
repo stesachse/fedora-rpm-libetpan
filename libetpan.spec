@@ -1,13 +1,20 @@
+%global cvsdate 20110312
+
 Name:           libetpan
-Version:        1.0
-Release:        1%{?dist}
+Version:        1.0.1
+Release:        0.1.%{cvsdate}cvs%{?dist}
 Summary: Portable, efficient middleware for different kinds of mail access
 
 Group:          System Environment/Libraries
 License:        BSD
 URL:            http://www.etpan.org/
-Source0:        http://dl.sf.net/%{name}/%{name}-%{version}.tar.gz
+# created with
+# cvs -d:pserver:anonymous@libetpan.cvs.sourceforge.net:/cvsroot/libetpan login
+# cvs -z3 -d:pserver:anonymous@libetpan.cvs.sourceforge.net:/cvsroot/libetpan co -P libetpan
+# gtar -cjvf libetpan-%{cvsdate}cvs.tar.bz2 libetpan
+Source0:        libetpan-%{cvsdate}cvs.tar.bz2
 Patch0:         libetpan-multiarch.patch
+Patch1:         libetpan-config_h.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  db4-devel
@@ -15,6 +22,7 @@ BuildRequires:  cyrus-sasl-devel
 BuildRequires:  gnutls-devel
 BuildRequires:  libcurl-devel expat-devel
 BuildRequires:  libtool
+BuildRequires:  autoconf automake
 
 %description
 The purpose of this mail library is to provide a portable, efficient middleware
@@ -35,12 +43,18 @@ The %{name}-devel package contains the files needed for development
 with %{name}.
 
 %prep
-%setup -q
-%patch0
+%setup -q -n %{name}
+%patch0 -b.multi
+%patch1 -p1 -b.config_h
+
+./autogen.sh
 
 %build
 %configure --disable-static --with-gnutls=yes --with-openssl=no
 make LIBTOOL=%{_bindir}/libtool %{?_smp_mflags}
+
+cd doc
+make doc
 
 
 %install
@@ -72,6 +86,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Sat Mar 12 2011 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+- 1.0.1-0.1.20110312cvs
+- upgrade to cvs to fix imap/gmail issues
+
 * Tue May 11 2010 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 - 1.0-1
 - version upgrade
