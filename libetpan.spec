@@ -90,6 +90,9 @@ rm -rf $RPM_BUILD_ROOT
 - 1.0.1-0.1.20110312cvs
 - upgrade to cvs to fix imap/gmail issues
 
+* Mon Feb 07 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
+
 * Tue May 11 2010 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 - 1.0-1
 - version upgrade
