@@ -2,7 +2,7 @@
 
 Name:           libetpan
 Version:        1.0.1
-Release:        0.1.%{cvsdate}cvs%{?dist}
+Release:        0.2.%{cvsdate}cvs%{?dist}
 Summary: Portable, efficient middleware for different kinds of mail access
 
 Group:          System Environment/Libraries
@@ -22,6 +22,7 @@ BuildRequires:  cyrus-sasl-devel
 BuildRequires:  gnutls-devel
 BuildRequires:  libcurl-devel expat-devel
 BuildRequires:  libtool
+BuildRequires:  zlib-devel
 BuildRequires:  autoconf automake
 
 %description
@@ -37,6 +38,7 @@ Requires:       gnutls-devel
 Requires:       cyrus-sasl-devel
 Requires:       db4-devel
 Requires:       expat-devel libcurl-devel
+Requires:       zlib-devel
 
 %description    devel
 The %{name}-devel package contains the files needed for development
@@ -86,6 +88,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Sun Apr 10 2011 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+- 1.0.1-0.2.20110312cvs
+- add BR zlib
+
 * Sat Mar 12 2011 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 - 1.0.1-0.1.20110312cvs
 - upgrade to cvs to fix imap/gmail issues
