@@ -1,20 +1,13 @@
-%global cvsdate 20110312
-
 Name:           libetpan
-Version:        1.0.1
-Release:        0.2.%{cvsdate}cvs%{?dist}
-Summary: Portable, efficient middleware for different kinds of mail access
+Version:        1.1
+Release:        1%{?dist}
+Summary: Portable, efficient middle-ware for different kinds of mail access
 
 Group:          System Environment/Libraries
 License:        BSD
 URL:            http://www.etpan.org/
-# created with
-# cvs -d:pserver:anonymous@libetpan.cvs.sourceforge.net:/cvsroot/libetpan login
-# cvs -z3 -d:pserver:anonymous@libetpan.cvs.sourceforge.net:/cvsroot/libetpan co -P libetpan
-# gtar -cjvf libetpan-%{cvsdate}cvs.tar.bz2 libetpan
-Source0:        libetpan-%{cvsdate}cvs.tar.bz2
+Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Patch0:         libetpan-multiarch.patch
-Patch1:         libetpan-config_h.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  db4-devel
@@ -26,7 +19,7 @@ BuildRequires:  zlib-devel
 BuildRequires:  autoconf automake
 
 %description
-The purpose of this mail library is to provide a portable, efficient middleware
+The purpose of this mail library is to provide a portable, efficient middle-ware
 for different kinds of mail access. When using the drivers interface, the
 interface is the same for all kinds of mail access, remote and local mailboxes.
 
@@ -45,11 +38,8 @@ The %{name}-devel package contains the files needed for development
 with %{name}.
 
 %prep
-%setup -q -n %{name}
+%setup -q
 %patch0 -b.multi
-%patch1 -p1 -b.config_h
-
-./autogen.sh
 
 %build
 %configure --disable-static --with-gnutls=yes --with-openssl=no
@@ -64,9 +54,9 @@ rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 
 rm -rf $RPM_BUILD_ROOT%{_libdir}/libetpan.{,l}a
-chmod 755 $RPM_BUILD_ROOT%{_libdir}/libetpan.so.15.0.0
 
 touch -r ChangeLog $RPM_BUILD_ROOT%{_bindir}/libetpan-config
+iconv -f iso8859-1 -t utf-8 ChangeLog > ChangeLog.conv && mv -f ChangeLog.conv ChangeLog
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -88,6 +78,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Tue Jul 19 2011 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+- 1.1-1
+- version upgrade (soname 16.0.0)
+- drop upstreamed build fix
+- spec cleanup
+
 * Sun Apr 10 2011 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 - 1.0.1-0.2.20110312cvs
 - add BR zlib
