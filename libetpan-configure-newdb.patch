@@ -1,0 +1,24 @@
+diff -up libetpan-1.1/configure.ac.orig libetpan-1.1/configure.ac
+--- libetpan-1.1/configure.ac.orig	2013-03-07 17:48:50.579530072 +0100
++++ libetpan-1.1/configure.ac	2013-03-07 17:49:36.368320253 +0100
+@@ -385,7 +385,7 @@ dnl Look for db3 or superior with db_cre
+   case "$DBVERS" in
+     3)
+     AC_MSG_RESULT([version 3.x or above])
+-    for lib in db-5.1 db-5.0 db-4.8 db-4.7 db-4.6 db-4.5 db-4.4 db-4.3 db-4.2 db-4.1 db-4.0 db-4 db4 db-3.2 db-3 db3 db; do
++    for lib in db-5.3 db-5.2 db-5.1 db-5.0 db-4.8 db-4.7 db-4.6 db-4.5 db-4.4 db-4.3 db-4.2 db-4.1 db-4.0 db-4 db4 db-3.2 db-3 db3 db; do
+       if test "x$DBLINKED" = "x0"; then
+ dnl        AC_CHECK_LIB($lib, db_create, [DBLIB="-l$lib"; DBLINKED=1], [])
+ dnl installations of libdb4 function names are defined in db.h
+diff -up libetpan-1.1/configure.orig libetpan-1.1/configure
+--- libetpan-1.1/configure.orig	2013-03-07 17:56:28.274406535 +0100
++++ libetpan-1.1/configure	2013-03-07 17:56:55.046548448 +0100
+@@ -18447,7 +18447,7 @@ rm -f core conftest.err conftest.$ac_obj
+     3)
+     { echo "$as_me:$LINENO: result: version 3.x or above" >&5
+ echo "${ECHO_T}version 3.x or above" >&6; }
+-    for lib in db-5.1 db-5.0 db-4.8 db-4.7 db-4.6 db-4.5 db-4.4 db-4.3 db-4.2 db-4.1 db-4.0 db-4 db4 db-3.2 db-3 db3 db; do
++    for lib in db-5.3 db-5.2 db-5.1 db-5.0 db-4.8 db-4.7 db-4.6 db-4.5 db-4.4 db-4.3 db-4.2 db-4.1 db-4.0 db-4 db4 db-3.2 db-3 db3 db; do
+       if test "x$DBLINKED" = "x0"; then
+         { echo "$as_me:$LINENO: checking for db_create() in -l$lib" >&5
+ echo $ECHO_N "checking for db_create() in -l$lib... $ECHO_C" >&6; }

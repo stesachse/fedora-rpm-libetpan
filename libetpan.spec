@@ -1,16 +1,19 @@
 Name:           libetpan
 Version:        1.1
-Release:        4%{?dist}
-Summary: Portable, efficient middle-ware for different kinds of mail access
+Release:        5%{?dist}
+Summary:        Portable, efficient middle-ware for different kinds of mail access
 
 Group:          System Environment/Libraries
 License:        BSD
 URL:            http://www.etpan.org/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Patch0:         libetpan-multiarch.patch
+# fix berkley db detection for newer berkley db...
+Patch1:         libetpan-configure-newdb.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires:  db4-devel
+BuildRequires:  liblockfile-devel
+BuildRequires:  libdb-devel < 5.4
 BuildRequires:  cyrus-sasl-devel
 BuildRequires:  gnutls-devel
 BuildRequires:  libcurl-devel expat-devel
@@ -27,9 +30,10 @@ interface is the same for all kinds of mail access, remote and local mailboxes.
 Summary:        Development package for %{name}
 Group:          Development/Libraries
 Requires:       %{name} = %{version}-%{release}
+Requires:       liblockfile-devel
 Requires:       gnutls-devel
 Requires:       cyrus-sasl-devel
-Requires:       db4-devel
+Requires:       libdb-devel < 5.4
 Requires:       expat-devel libcurl-devel
 Requires:       zlib-devel
 
@@ -39,7 +43,8 @@ with %{name}.
 
 %prep
 %setup -q
-%patch0 -b.multi
+%patch0 -b .multi
+%patch1 -p1 -b .newdb
 
 %build
 %configure --disable-static --with-gnutls=yes --with-openssl=no
@@ -47,7 +52,6 @@ make LIBTOOL=%{_bindir}/libtool %{?_smp_mflags}
 
 cd doc
 make doc
-
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -78,6 +82,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Thu Mar 07 2013 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+- 1.1-5
+- Build against liblockfile to avoid internal locking code
+- Fix build against newer berkley db and add guard to cause build failure an
+  even newer versions
+
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
