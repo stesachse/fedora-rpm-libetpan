@@ -1,6 +1,6 @@
 Name:           libetpan
 Version:        1.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Portable, efficient middle-ware for different kinds of mail access
 
 Group:          System Environment/Libraries
@@ -82,6 +82,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
+
 * Thu Mar 07 2013 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 - 1.1-5
 - Build against liblockfile to avoid internal locking code
