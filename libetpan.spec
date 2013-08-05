@@ -10,6 +10,8 @@ Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.
 Patch0:         libetpan-multiarch.patch
 # fix berkley db detection for newer berkley db...
 Patch1:         libetpan-configure-newdb.patch
+# http://ausil.fedorapeople.org/aarch64/libetpan/libetpan-aarch64.patch
+Patch2:         libetpan-aarch64.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  liblockfile-devel
@@ -46,6 +48,7 @@ with %{name}.
 %setup -q
 %patch0 -b .multi
 %patch1 -p1 -b .newdb
+%patch2 -p1 -b .aarch64-updates
 
 # 2013-08-05 F20 development, bz 992070: The configure scripts adds some
 # extra libs to the GnuTLS link options, which cause rebuilds to fail, since
@@ -89,6 +92,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Mon Aug  5 2013 Michael Schwendt <mschwendt@fedoraproject.org> - 1.1-7
+- apply AArch64 autotools config.* patch (#925714)
 - fix FTBFS (#992070)
 - use %%_isa in -devel package Requires
 - drop %%defattr usage
