@@ -1,6 +1,6 @@
 Name:           libetpan
 Version:        1.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Portable, efficient middle-ware for different kinds of mail access
 
 Group:          System Environment/Libraries
@@ -29,13 +29,14 @@ interface is the same for all kinds of mail access, remote and local mailboxes.
 %package        devel
 Summary:        Development package for %{name}
 Group:          Development/Libraries
-Requires:       %{name} = %{version}-%{release}
-Requires:       liblockfile-devel
-Requires:       gnutls-devel
-Requires:       cyrus-sasl-devel
-Requires:       libdb-devel < 5.4
-Requires:       expat-devel libcurl-devel
-Requires:       zlib-devel
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       liblockfile-devel%{?_isa}
+Requires:       gnutls-devel%{?_isa}
+Requires:       cyrus-sasl-devel%{?_isa}
+Requires:       libdb-devel%{?_isa} < 5.4
+Requires:       expat-devel%{?_isa}
+Requires:       libcurl-devel%{?_isa}
+Requires:       zlib-devel%{?_isa}
 
 %description    devel
 The %{name}-devel package contains the files needed for development
@@ -45,6 +46,13 @@ with %{name}.
 %setup -q
 %patch0 -b .multi
 %patch1 -p1 -b .newdb
+
+# 2013-08-05 F20 development, bz 992070: The configure scripts adds some
+# extra libs to the GnuTLS link options, which cause rebuilds to fail, since
+# gnutls-devel no longer pulls in libgcrypt-devel libgpg-error-devel
+# [The alternative fix is to BR those packages, of course.]
+grep 'GNUTLSLIB="-lgnutls -lgcrypt -lgpg-error -lz"' configure || exit -1
+sed -i 's!-lgcrypt -lgpg-error -lz!!g' configure
 
 %build
 %configure --disable-static --with-gnutls=yes --with-openssl=no
@@ -69,12 +77,10 @@ rm -rf $RPM_BUILD_ROOT
 %postun -p /sbin/ldconfig
 
 %files
-%defattr(-,root,root,-)
 %doc ChangeLog COPYRIGHT NEWS
 %{_libdir}/*.so.*
 
 %files devel
-%defattr(-,root,root,-)
 %doc doc/API.html doc/README.html doc/DOCUMENTATION
 %{_bindir}/libetpan-config
 %{_includedir}/libetpan
@@ -82,6 +88,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Mon Aug  5 2013 Michael Schwendt <mschwendt@fedoraproject.org> - 1.1-7
+- fix FTBFS (#992070)
+- use %%_isa in -devel package Requires
+- drop %%defattr usage
+
 * Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 
