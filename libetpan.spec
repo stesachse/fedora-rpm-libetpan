@@ -1,12 +1,12 @@
 Name:           libetpan
-Version:        1.5
-Release:        3%{?dist}
+Version:        1.6
+Release:        1%{?dist}
 Summary:        Portable, efficient middle-ware for different kinds of mail access
 
 Group:          System Environment/Libraries
 License:        BSD
 URL:            http://www.etpan.org/
-# https://github.com/dinhviethoa/%{name}/archive/
+# https://github.com/dinhviethoa/%{name}/archive/%{version}.tar.gz
 Source0:        %{name}-%{version}.tar.gz
 Patch0:         libetpan-multiarch.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -44,9 +44,9 @@ with %{name}.
 %prep
 %setup -q
 
-./autogen.sh
-
 %patch0 -b .multi
+
+./autogen.sh
 
 # 2013-08-05 F20 development, bz 992070: The configure scripts adds some
 # extra libs to the GnuTLS link options, which cause rebuilds to fail, since
@@ -89,6 +89,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Sat Nov 01 2014 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+- 1.6-1
+- version upgrade (rhbz#1159493)
+
 * Sun Aug 17 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
 
