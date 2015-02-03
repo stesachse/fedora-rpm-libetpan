@@ -9,6 +9,9 @@ URL:            http://www.etpan.org/
 # https://github.com/dinhviethoa/%{name}/archive/%{version}.tar.gz
 Source0:        %{name}-%{version}.tar.gz
 Patch0:         libetpan-multiarch.patch
+# system crypto policy (see rhbz#1179310)
+Patch10:        libetpan-cryptopolicy.patch
+
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  liblockfile-devel
@@ -89,6 +92,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Tue Feb 03 2015 Andreas Bierfert <andreas.bierfert@lowlatency.de>
+- 1.6-2
+- utilize system-wide crypto-policy (rhbz#1179310)
+
 * Sat Nov 01 2014 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 - 1.6-1
 - version upgrade (rhbz#1159493)
