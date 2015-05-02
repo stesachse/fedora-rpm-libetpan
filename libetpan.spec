@@ -1,6 +1,6 @@
 Name:           libetpan
 Version:        1.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Portable, efficient middle-ware for different kinds of mail access
 
 Group:          System Environment/Libraries
@@ -92,6 +92,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Sat May 02 2015 Kalev Lember <kalevlember@gmail.com> - 1.6-3
+- Rebuilt for GCC 5 C++11 ABI change
+
 * Tue Feb 03 2015 Andreas Bierfert <andreas.bierfert@lowlatency.de>
 - 1.6-2
 - utilize system-wide crypto-policy (rhbz#1179310)
