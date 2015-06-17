@@ -1,6 +1,6 @@
 Name:           libetpan
 Version:        1.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Portable, efficient middle-ware for different kinds of mail access
 
 Group:          System Environment/Libraries
@@ -92,6 +92,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
 * Fri Jun 12 2015 Michael Schwendt <mschwendt@fedoraproject.org> - 1.6-4
 - Rebuild for gnutls SONAME bump (to match gnutls used by Claws Mail).
 
