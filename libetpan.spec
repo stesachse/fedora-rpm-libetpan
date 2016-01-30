@@ -1,6 +1,6 @@
 Name:           libetpan
 Version:        1.6
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Portable, efficient middle-ware for different kinds of mail access
 
 Group:          System Environment/Libraries
@@ -8,7 +8,8 @@ License:        BSD
 URL:            http://www.etpan.org/
 # https://github.com/dinhviethoa/%{name}/archive/%{version}.tar.gz
 Source0:        %{name}-%{version}.tar.gz
-Patch0:         libetpan-multiarch.patch
+# fix and clean up libetpan-config --libs output
+Patch0:         libetpan-1.6-config-script.patch
 # system crypto policy (see rhbz#1179310)
 Patch10:        libetpan-cryptopolicy.patch
 
@@ -18,10 +19,12 @@ BuildRequires:  liblockfile-devel
 BuildRequires:  libdb-devel < 5.4
 BuildRequires:  cyrus-sasl-devel
 BuildRequires:  gnutls-devel
-BuildRequires:  libcurl-devel expat-devel
 BuildRequires:  libtool
 BuildRequires:  zlib-devel
 BuildRequires:  autoconf automake
+# disabled by default in configure.ac accidentally
+# https://github.com/dinhviethoa/libetpan/issues/221
+#BuildRequires:  libcurl-devel expat-devel
 
 %description
 The purpose of this mail library is to provide a portable, efficient middle-ware
@@ -32,13 +35,13 @@ interface is the same for all kinds of mail access, remote and local mailboxes.
 Summary:        Development package for %{name}
 Group:          Development/Libraries
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       liblockfile-devel%{?_isa}
-Requires:       gnutls-devel%{?_isa}
-Requires:       cyrus-sasl-devel%{?_isa}
-Requires:       libdb-devel%{?_isa} < 5.4
-Requires:       expat-devel%{?_isa}
-Requires:       libcurl-devel%{?_isa}
-Requires:       zlib-devel%{?_isa}
+#Requires:       liblockfile-devel%{?_isa}
+#Requires:       gnutls-devel%{?_isa}
+#Requires:       cyrus-sasl-devel%{?_isa}
+#Requires:       libdb-devel%{?_isa} < 5.4
+##Requires:       expat-devel%{?_isa}
+##Requires:       libcurl-devel%{?_isa}
+#Requires:       zlib-devel%{?_isa}
 
 %description    devel
 The %{name}-devel package contains the files needed for development
@@ -47,7 +50,7 @@ with %{name}.
 %prep
 %setup -q
 
-%patch0 -b .multi
+%patch0 -b .libetpan-config-script
 
 ./autogen.sh
 
@@ -92,6 +95,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Sat Jan 30 2016 Michael Schwendt <mschwendt@fedoraproject.org>
+- 1.6-6
+- disable BR libcurl-devel expat-devel since the configure script
+  accidentally disables the detection of those libs anyway
+- clean up "libetpan-config --libs" output (shall fix rhbz#1279395)
+  as to not respecify LDFLAGS and shared libs / also frees the -devel
+  package from several dependencies
+
 * Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 
