@@ -1,3 +1,6 @@
+# TODO: which was the last version that built with libcurl and libexpat
+#       by default before 1.6 disabled them accidentally?
+
 Name:           libetpan
 Version:        1.6
 Release:        6%{?dist}
