@@ -1,6 +1,3 @@
-# TODO: which was the last version that built with libcurl and libexpat
-#       by default before 1.6 disabled them accidentally?
-
 Name:           libetpan
 Version:        1.6
 Release:        6%{?dist}
@@ -27,6 +24,8 @@ BuildRequires:  zlib-devel
 BuildRequires:  autoconf automake
 # disabled by default in configure.ac accidentally
 # https://github.com/dinhviethoa/libetpan/issues/221
+# libcurl and libexpat not needed:
+# http://lists.claws-mail.org/pipermail/users/2016-January/015665.html
 #BuildRequires:  libcurl-devel expat-devel
 
 %description
@@ -38,13 +37,6 @@ interface is the same for all kinds of mail access, remote and local mailboxes.
 Summary:        Development package for %{name}
 Group:          Development/Libraries
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-#Requires:       liblockfile-devel%{?_isa}
-#Requires:       gnutls-devel%{?_isa}
-#Requires:       cyrus-sasl-devel%{?_isa}
-#Requires:       libdb-devel%{?_isa} < 5.4
-##Requires:       expat-devel%{?_isa}
-##Requires:       libcurl-devel%{?_isa}
-#Requires:       zlib-devel%{?_isa}
 
 %description    devel
 The %{name}-devel package contains the files needed for development
