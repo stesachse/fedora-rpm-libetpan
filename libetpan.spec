@@ -1,6 +1,6 @@
 Name:           libetpan
 Version:        1.6
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Portable, efficient middle-ware for different kinds of mail access
 
 Group:          System Environment/Libraries
@@ -90,6 +90,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
+
 * Sat Jan 30 2016 Michael Schwendt <mschwendt@fedoraproject.org>
 - 1.6-6
 - disable BR libcurl-devel expat-devel since the configure script
