@@ -1,0 +1,31 @@
+From 77f3cdaabbfa283270fe11bc0c1195da66bcdef8 Mon Sep 17 00:00:00 2001
+From: "Hoa V. DINH" <dinh.viet.hoa@gmail.com>
+Date: Mon, 30 May 2016 18:52:43 -0700
+Subject: [PATCH] Fixed memory leak (fixed #251)
+
+---
+ src/low-level/imap/mailimap_id_parser.c | 11 -----------
+ 1 file changed, 11 deletions(-)
+
+diff --git a/src/low-level/imap/mailimap_id_parser.c b/src/low-level/imap/mailimap_id_parser.c
+index 76cfbb5..69df4a4 100644
+--- a/src/low-level/imap/mailimap_id_parser.c
++++ b/src/low-level/imap/mailimap_id_parser.c
+@@ -156,17 +156,6 @@ static int mailimap_id_params_list_parse(mailstream * fd,
+ 
+   r = mailimap_nil_parse(fd, buffer, parser_ctx, &cur_token);
+   if (r == MAILIMAP_NO_ERROR) {
+-    items = clist_new();
+-    if (items == NULL) {
+-      return MAILIMAP_ERROR_MEMORY;
+-    }
+-    
+-    params_list = mailimap_id_params_list_new(items);
+-    if (params_list == NULL) {
+-      clist_free(items);
+-      return MAILIMAP_ERROR_MEMORY;
+-    }
+-    
+     * indx = cur_token;
+     * result = NULL;
+     return MAILIMAP_NO_ERROR;

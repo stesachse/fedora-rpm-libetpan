@@ -1,6 +1,6 @@
 Name:           libetpan
-Version:        1.6
-Release:        7%{?dist}
+Version:        1.7.2
+Release:        1%{?dist}
 Summary:        Portable, efficient middle-ware for different kinds of mail access
 
 Group:          System Environment/Libraries
@@ -10,6 +10,10 @@ URL:            http://www.etpan.org/
 Source0:        %{name}-%{version}.tar.gz
 # fix and clean up libetpan-config --libs output
 Patch0:         libetpan-1.6-config-script.patch
+#https://github.com/dinhviethoa/libetpan/commit/77f3cdaabbfa283270fe11bc0c1195da66bcdef8
+Patch1:         libetpan-1.7-251-fix-memory-leak.patch
+#https://github.com/dinhviethoa/libetpan/commit/4c36ec1850b6b7bdab9c22008500ca8f47fdf550
+Patch2:         libetpan-1.7-fix-idle-crash.patch
 # system crypto policy (see rhbz#1179310)
 Patch10:        libetpan-cryptopolicy.patch
 
@@ -46,6 +50,8 @@ with %{name}.
 %setup -q
 
 %patch0 -b .libetpan-config-script
+%patch1 -p1 -b .251-memleak
+%patch2 -p1 -b .idle-crash
 
 ./autogen.sh
 
@@ -90,6 +96,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Sat Dec 10 2016 Andreas Bierfert <andreas.bierfert@lowlatency.de>
+- 1.7.2-1
+- version upgrade (rhbz#1330524)
+
 * Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
