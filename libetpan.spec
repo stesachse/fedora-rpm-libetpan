@@ -1,6 +1,6 @@
 Name:           libetpan
 Version:        1.7.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Portable, efficient middle-ware for different kinds of mail access
 
 Group:          System Environment/Libraries
@@ -96,6 +96,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
 * Sat Dec 10 2016 Andreas Bierfert <andreas.bierfert@lowlatency.de>
 - 1.7.2-1
 - version upgrade (rhbz#1330524)
