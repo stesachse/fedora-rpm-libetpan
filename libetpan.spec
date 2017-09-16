@@ -1,6 +1,6 @@
 Name:           libetpan
-Version:        1.7.2
-Release:        4%{?dist}
+Version:        1.8
+Release:        1%{?dist}
 Summary:        Portable, efficient middle-ware for different kinds of mail access
 
 Group:          System Environment/Libraries
@@ -10,10 +10,6 @@ URL:            http://www.etpan.org/
 Source0:        %{name}-%{version}.tar.gz
 # fix and clean up libetpan-config --libs output
 Patch0:         libetpan-1.6-config-script.patch
-#https://github.com/dinhviethoa/libetpan/commit/77f3cdaabbfa283270fe11bc0c1195da66bcdef8
-Patch1:         libetpan-1.7-251-fix-memory-leak.patch
-#https://github.com/dinhviethoa/libetpan/commit/4c36ec1850b6b7bdab9c22008500ca8f47fdf550
-Patch2:         libetpan-1.7-fix-idle-crash.patch
 # system crypto policy (see rhbz#1179310)
 Patch10:        libetpan-cryptopolicy.patch
 
@@ -28,7 +24,7 @@ BuildRequires:  zlib-devel
 BuildRequires:  autoconf automake
 # disabled by default in configure.ac accidentally
 # https://github.com/dinhviethoa/libetpan/issues/221
-# libcurl and libexpat not needed:
+# libcurl and libexpat not needed by Claws Mail:
 # http://lists.claws-mail.org/pipermail/users/2016-January/015665.html
 #BuildRequires:  libcurl-devel expat-devel
 
@@ -50,8 +46,6 @@ with %{name}.
 %setup -q
 
 %patch0 -b .libetpan-config-script
-%patch1 -p1 -b .251-memleak
-%patch2 -p1 -b .idle-crash
 
 ./autogen.sh
 
@@ -70,7 +64,6 @@ cd doc
 make doc
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 
 rm -rf $RPM_BUILD_ROOT%{_libdir}/libetpan.{,l}a
@@ -78,14 +71,12 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/libetpan.{,l}a
 touch -r ChangeLog $RPM_BUILD_ROOT%{_bindir}/libetpan-config
 iconv -f iso8859-1 -t utf-8 ChangeLog > ChangeLog.conv && mv -f ChangeLog.conv ChangeLog
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
 %files
-%doc ChangeLog COPYRIGHT NEWS
+%license COPYRIGHT
+%doc ChangeLog NEWS
 %{_libdir}/*.so.*
 
 %files devel
@@ -96,6 +87,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Sat Sep 16 2017 Michael Schwendt <mschwendt@fedoraproject.org> - 1.8-1
+- Build 1.8 release.
+- Use license macro, remove clean, use auto-clean buildroot in install section.
+
 * Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
 
