@@ -13,7 +13,6 @@ Patch0:         libetpan-1.6-config-script.patch
 # system crypto policy (see rhbz#1179310)
 Patch10:        libetpan-cryptopolicy.patch
 
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  liblockfile-devel
 BuildRequires:  libdb-devel < 5.4
