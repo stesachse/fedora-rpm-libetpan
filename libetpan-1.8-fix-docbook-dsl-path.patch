@@ -1,0 +1,12 @@
+diff -up ./doc/Makefile.am-orig ./doc/Makefile.am
+--- ./doc/Makefile.am-orig	2017-05-08 05:27:35.000000000 +0200
++++ ./doc/Makefile.am	2018-05-11 05:59:07.967028773 +0200
+@@ -32,7 +32,7 @@ include $(top_srcdir)/rules.mk
+ EXTRA_DIST = API.sgml depend.dot DOCUMENTATION layer.fig README.sgml
+ 
+ # DSL = /usr/lib/sgml/stylesheet/dsssl/docbook/nwalsh/html/docbook.dsl
+-DSL = /usr/share/sgml/docbook/stylesheet/dsssl/modular/html/docbook.dsl
++DSL = /usr/share/sgml/docbook/dsssl-stylesheets/html/docbook.dsl
+ JADE = jade
+ HTML_RENDER = lynx -force_html -nolist -dump
+ 

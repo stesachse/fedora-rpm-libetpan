@@ -1,0 +1,19 @@
+diff -up ./doc/API.sgml-orig ./doc/API.sgml
+--- ./doc/API.sgml-orig	2017-05-08 05:27:35.000000000 +0200
++++ ./doc/API.sgml	2018-05-11 05:51:59.507125069 +0200
+@@ -6443,6 +6443,7 @@ int main(int argc, char ** argv)
+         <command>mailmime_write</command>
+         (<xref linkend="mailmime-write">)
+         to render a MIME message.
++        </para>
+       </sect2>
+     </sect1>
+     
+@@ -14565,6 +14566,7 @@ struct mailsession_driver {
+               whose number is given to a given mailbox. The mailbox
+               must be accessible from the same session.
+               <emphasis>Use of this method is deprecated</emphasis>.
++            </para>
+           </listitem>
+           
+           <listitem>

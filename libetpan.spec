@@ -10,6 +10,10 @@ URL:            http://www.etpan.org/
 Source0:        %{name}-%{version}.tar.gz
 # fix and clean up libetpan-config --libs output
 Patch0:         libetpan-1.6-config-script.patch
+# add missing end tags
+Patch1:         libetpan-1.8-fix-api-sgml.patch
+# fix wrong path to docbook.dsl
+Patch2:         libetpan-1.8-fix-docbook-dsl-path.patch
 # system crypto policy (see rhbz#1179310)
 Patch10:        libetpan-cryptopolicy.patch
 
@@ -21,6 +25,7 @@ BuildRequires:  gnutls-devel
 BuildRequires:  libtool
 BuildRequires:  zlib-devel
 BuildRequires:  autoconf automake
+BuildRequires:  lynx openjade docbook-style-dsssl
 # disabled by default in configure.ac accidentally
 # https://github.com/dinhviethoa/libetpan/issues/221
 # libcurl and libexpat not needed by Claws Mail:
@@ -45,6 +50,8 @@ with %{name}.
 %setup -q
 
 %patch0 -b .libetpan-config-script
+%patch1 -b .libetpan-fix-api-sgml
+%patch2 -b .libetpan-fix-docbook-dsl-path
 %patch10 -p1 -b .libetpan-cryptopolicy
 
 ./autogen.sh
