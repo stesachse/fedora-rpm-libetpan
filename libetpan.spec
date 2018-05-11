@@ -45,6 +45,7 @@ with %{name}.
 %setup -q
 
 %patch0 -b .libetpan-config-script
+%patch10 -p1 -b .libetpan-cryptopolicy
 
 ./autogen.sh
 
